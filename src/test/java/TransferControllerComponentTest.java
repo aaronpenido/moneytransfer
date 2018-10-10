@@ -6,7 +6,6 @@ import org.jboss.resteasy.mock.MockDispatcherFactory;
 import org.jboss.resteasy.mock.MockHttpRequest;
 import org.jboss.resteasy.mock.MockHttpResponse;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.ws.rs.core.MediaType;
@@ -15,7 +14,6 @@ import java.net.URISyntaxException;
 import static javax.ws.rs.core.Response.Status.OK;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Ignore
 public class TransferControllerComponentTest {
 
     private static Dispatcher dispatcher;
@@ -29,7 +27,7 @@ public class TransferControllerComponentTest {
     }
 
     @Test
-    public void helloTest() throws Exception {
+    public void callTransfersEndpoint() throws Exception {
         MockHttpResponse response = sendAsyncPostRequest("/transfers", null);
 
         assertThat(response.getStatus()).isEqualTo(OK.getStatusCode());
