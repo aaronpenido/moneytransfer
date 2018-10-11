@@ -13,13 +13,9 @@ import services.CounterPartyCreator;
 
 import javax.ws.rs.core.Response;
 
-import java.util.UUID;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CounterPartyControllerTest {
@@ -42,7 +38,7 @@ public class CounterPartyControllerTest {
 
         CounterPartyRequestBody counterPartyRequestBody = new CounterPartyRequestBody(name, country, identificationNumber);
 
-        UUID generatedId = UUID.randomUUID();
+        Integer generatedId = 123;
         CounterParty createdCounterParty = mock(CounterParty.class);
         when(createdCounterParty.getId()).thenReturn(generatedId);
 
@@ -62,7 +58,7 @@ public class CounterPartyControllerTest {
         String identificationNumber = "123456789";
         CounterPartyRequestBody counterPartyRequestBody = new CounterPartyRequestBody(name, country, identificationNumber);
 
-        UUID generatedId = UUID.randomUUID();
+        Integer generatedId = 123;
         CounterParty createdCounterParty = mock(CounterParty.class);
         when(createdCounterParty.getId()).thenReturn(generatedId);
 

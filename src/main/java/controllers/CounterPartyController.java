@@ -27,8 +27,7 @@ public class CounterPartyController {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response create(CounterPartyRequestBody counterPartyRequestBody)
-    {
+    public Response create(CounterPartyRequestBody counterPartyRequestBody) {
         CounterParty counterParty = new CounterParty(counterPartyRequestBody);
 
         CounterParty createdCounterParty = counterPartyCreator.perform(counterParty);
