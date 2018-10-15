@@ -1,6 +1,5 @@
 package components;
 
-import com.google.gson.Gson;
 import controllers.CounterPartyController;
 import models.CounterParty;
 import org.jboss.resteasy.mock.MockHttpResponse;
@@ -23,7 +22,7 @@ public class CounterPartyControllerComponentTest {
 
     private static final String COUNTERPARTIES_ENDPOINT = "/counterparties";
 
-    private static CounterPartyController counterPartyController;
+    private CounterPartyController counterPartyController;
 
     @Mock
     private CounterPartyCreator counterPartyCreator;
@@ -42,21 +41,11 @@ public class CounterPartyControllerComponentTest {
 
     @Test
     public void callTransfersEndpoint() throws Exception {
-        String name = "Central Bank";
-        String country = "GER";
-        String identificationNumber = "123456789";
+        CounterPartyRequestBody counterPartyRequestBody =
+                new CounterPartyRequestBody("Central Bank", "GER", "123456789");
 
-        CounterPartyRequestBody counterPartyRequestBody = new CounterPartyRequestBody(name, country, identificationNumber);
-
-        String requestBodyAsJson = asJson(counterPartyRequestBody);
-
-        MockHttpResponse response = mockHttp.sendAsyncPostRequest(COUNTERPARTIES_ENDPOINT, requestBodyAsJson);
+        MockHttpResponse response = mockHttp.sendAsyncPostRequest(COUNTERPARTIES_ENDPOINT, counterPartyRequestBody);
 
         assertThat(response.getStatus()).isEqualTo(CREATED.getStatusCode());
-    }
-
-    private String asJson(Object object) {
-        Gson gson = new Gson();
-        return gson.toJson(object);
     }
 }

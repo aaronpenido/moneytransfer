@@ -1,6 +1,5 @@
 package components;
 
-import com.google.gson.Gson;
 import controllers.TransferController;
 import models.Transfer;
 import org.jboss.resteasy.mock.MockHttpResponse;
@@ -21,6 +20,8 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TransferControllerComponentTest {
+
+    private static final String TRANSFERS_ENDPOINT = "/transfers";
 
     private TransferController transferController;
 
@@ -43,9 +44,7 @@ public class TransferControllerComponentTest {
 
         when(transferCreator.perform(any(Transfer.class))).thenReturn(new Transfer(transferRequestBody));
 
-        String requestBody = new Gson().toJson(transferRequestBody);
-
-        MockHttpResponse response = mockHttp.sendAsyncPostRequest("/transfers", requestBody);
+        MockHttpResponse response = mockHttp.sendAsyncPostRequest(TRANSFERS_ENDPOINT, transferRequestBody);
 
         assertThat(response.getStatus()).isEqualTo(CREATED.getStatusCode());
     }

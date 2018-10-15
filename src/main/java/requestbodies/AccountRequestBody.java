@@ -38,4 +38,8 @@ public class AccountRequestBody {
     public AccountState getState() {
         return state;
     }
+
+    public Integer getCounterPartyId() {
+        return counterPartyId;
+    }
 }

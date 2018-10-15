@@ -1,5 +1,6 @@
 package components;
 
+import com.google.gson.Gson;
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.core.SynchronousDispatcher;
 import org.jboss.resteasy.core.SynchronousExecutionContext;
@@ -19,14 +20,16 @@ class MockHttp {
         dispatcher.getRegistry().addSingletonResource(controller);
     }
 
-    MockHttpResponse sendAsyncPostRequest(String path, String requestBody) throws URISyntaxException {
+    MockHttpResponse sendAsyncPostRequest(String path, Object requestBody) throws URISyntaxException {
 
         MockHttpRequest request = MockHttpRequest.post(path);
 
         if (requestBody != null) {
             request.accept(MediaType.APPLICATION_JSON);
             request.contentType(MediaType.APPLICATION_JSON_TYPE);
-            request.content(requestBody.getBytes());
+
+            String requestBodyAsJson = asJson(requestBody);
+            request.content(requestBodyAsJson.getBytes());
         }
 
         MockHttpResponse response = new MockHttpResponse();
@@ -39,5 +42,10 @@ class MockHttp {
     private MockHttpResponse sendHttpRequest(MockHttpRequest request, MockHttpResponse response) {
         dispatcher.invoke(request, response);
         return response;
+    }
+
+    private String asJson(Object object) {
+        Gson gson = new Gson();
+        return gson.toJson(object);
     }
 }
