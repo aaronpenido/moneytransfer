@@ -11,8 +11,7 @@ public class AccountNotFoundException extends RuntimeException implements Format
     @Override
     public ErrorResponseBody asErrorResponseBody() {
         String code = "accountNotFound";
-        String field = "accountId";
 
-        return new ErrorResponseBody(code, field, this.getMessage());
+        return new ErrorResponseBody(code, this.getMessage());
     }
 }
