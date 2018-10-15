@@ -28,7 +28,7 @@ public class CounterPartyEntity {
         this.identificationNumber = counterParty.getIdentificationNumber();
     }
 
-    Integer getId() {
+    public Integer getId() {
         return id;
     }
 

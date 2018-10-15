@@ -27,4 +27,15 @@ public class CounterPartyRepository {
 
         return saved;
     }
+
+    public CounterPartyEntity findById(Integer id) {
+        Session session = sessionFactory.openSession();
+
+        CounterPartyEntity counterPartyEntity = (CounterPartyEntity) session.createQuery(
+                "FROM CounterParty WHERE id = " + id).getSingleResult();
+
+        session.close();
+
+        return counterPartyEntity;
+    }
 }
