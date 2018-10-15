@@ -1,5 +1,7 @@
 package models;
 
+import requestbodies.AccountRequestBody;
+
 import java.math.BigDecimal;
 
 public class Account {
@@ -18,6 +20,13 @@ public class Account {
         this.currency = accountEntity.getCurrency();
         this.state = accountEntity.getState();
         this.counterParty = new CounterParty(accountEntity.getCounterParty());
+    }
+
+    public Account(AccountRequestBody accountRequestBody) {
+        this.name = accountRequestBody.getName();
+        this.balance = accountRequestBody.getBalance();
+        this.currency = accountRequestBody.getCurrency();
+        this.state = accountRequestBody.getState();
     }
 
     public Integer getId() {
