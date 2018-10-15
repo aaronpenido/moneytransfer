@@ -1,9 +1,12 @@
 package persistence;
 
+import exceptions.CounterPartyNotFoundException;
 import models.CounterPartyEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import javax.persistence.NoResultException;
 
 public class CounterPartyRepository {
 
@@ -29,13 +32,15 @@ public class CounterPartyRepository {
     }
 
     public CounterPartyEntity findById(Integer id) {
-        Session session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
+            CounterPartyEntity counterPartyEntity = (CounterPartyEntity) session.createQuery(
+                    "FROM CounterParty WHERE id = " + id).getSingleResult();
 
-        CounterPartyEntity counterPartyEntity = (CounterPartyEntity) session.createQuery(
-                "FROM CounterParty WHERE id = " + id).getSingleResult();
+            session.close();
 
-        session.close();
-
-        return counterPartyEntity;
+            return counterPartyEntity;
+        } catch (NoResultException noResultException) {
+            throw new CounterPartyNotFoundException(id);
+        }
     }
 }

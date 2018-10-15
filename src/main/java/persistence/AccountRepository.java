@@ -1,9 +1,12 @@
 package persistence;
 
+import exceptions.AccountNotFoundException;
 import models.AccountEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import javax.persistence.NoResultException;
 
 public class AccountRepository {
 
@@ -29,13 +32,15 @@ public class AccountRepository {
     }
 
     public AccountEntity findById(Integer id) {
-        Session session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
+            AccountEntity accountEntity = (AccountEntity) session.createQuery(
+                    "FROM Account WHERE id = " + id).getSingleResult();
 
-        AccountEntity accountEntity = (AccountEntity) session.createQuery(
-                "FROM Account WHERE id = " + id).getSingleResult();
+            session.close();
 
-        session.close();
-
-        return accountEntity;
+            return accountEntity;
+        } catch (NoResultException noResultException) {
+            throw new AccountNotFoundException(id);
+        }
     }
 }
