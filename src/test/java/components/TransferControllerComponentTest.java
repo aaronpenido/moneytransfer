@@ -1,3 +1,5 @@
+package components;
+
 import com.google.gson.Gson;
 import controllers.TransferController;
 import models.Transfer;
