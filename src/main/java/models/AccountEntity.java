@@ -1,6 +1,12 @@
 package models;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @Entity(name = "Account")
@@ -21,6 +27,9 @@ public class AccountEntity {
 
     @ManyToOne
     private CounterPartyEntity counterParty;
+
+    public AccountEntity() {
+    }
 
     public AccountEntity(Account account, CounterPartyEntity counterParty) {
         this.id = account.getId();

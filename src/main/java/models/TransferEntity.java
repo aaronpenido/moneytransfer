@@ -25,6 +25,9 @@ public class TransferEntity {
 
     private String scheduledFor;
 
+    public TransferEntity() {
+    }
+
     public TransferEntity(Transfer transfer) {
         this.id = transfer.getId();
         this.accountId = transfer.getAccountId();

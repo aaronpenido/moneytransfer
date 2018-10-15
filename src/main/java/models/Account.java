@@ -27,6 +27,7 @@ public class Account {
         this.balance = accountRequestBody.getBalance();
         this.currency = accountRequestBody.getCurrency();
         this.state = accountRequestBody.getState();
+        this.counterParty = new CounterParty(accountRequestBody.getCounterPartyId());
     }
 
     public Integer getId() {

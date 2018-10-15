@@ -22,6 +22,10 @@ public class CounterParty {
         this.identificationNumber = counterPartyEntity.getIdentificationNumber();
     }
 
+    public CounterParty(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
