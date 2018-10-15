@@ -59,7 +59,7 @@ public class TransferControllerTest {
         int receiverId = 3;
         BigDecimal amount = BigDecimal.TEN;
         String currency = "EUR";
-        String description = "Transfer to Jackie";
+        String description = "Description";
         String scheduledFor = "2018-09-10";
 
         TransferRequestBody transferRequestBody = new TransferRequestBody(accountId, receiverId, amount, currency, description, scheduledFor);

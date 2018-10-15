@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 
 public class Transfer {
 
-    private int id;
-    private int accountId;
-    private int receiverId;
+    private Integer id;
+    private Integer accountId;
+    private Integer receiverId;
     private BigDecimal amount;
     private String currency;
     private String description;
@@ -23,15 +23,25 @@ public class Transfer {
         this.scheduledFor = transferRequestBody.getScheduledFor();
     }
 
-    public int getId() {
+    public Transfer(TransferEntity savedTransfer) {
+        this.id = savedTransfer.getId();
+        this.accountId = savedTransfer.getAccountId();
+        this.receiverId = savedTransfer.getReceiverId();
+        this.amount = savedTransfer.getAmount();
+        this.currency = savedTransfer.getCurrency();
+        this.description = savedTransfer.getDescription();
+        this.scheduledFor = savedTransfer.getScheduledFor();
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public int getAccountId() {
+    public Integer getAccountId() {
         return accountId;
     }
 
-    public int getReceiverId() {
+    public Integer getReceiverId() {
         return receiverId;
     }
 

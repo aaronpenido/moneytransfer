@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 public class TransferRequestBody {
 
-    private int accountId;
-    private int receiverId;
+    private Integer accountId;
+    private Integer receiverId;
     private BigDecimal amount;
     private String currency;
     private String description;
@@ -14,7 +14,7 @@ public class TransferRequestBody {
     public TransferRequestBody() {
     }
 
-    public TransferRequestBody(int accountId, int receiverId, BigDecimal amount,
+    public TransferRequestBody(Integer accountId, Integer receiverId, BigDecimal amount,
                                String currency, String description, String scheduledFor) {
         this.accountId = accountId;
         this.receiverId = receiverId;
@@ -24,11 +24,11 @@ public class TransferRequestBody {
         this.scheduledFor = scheduledFor;
     }
 
-    public int getAccountId() {
+    public Integer getAccountId() {
         return accountId;
     }
 
-    public int getReceiverId() {
+    public Integer getReceiverId() {
         return receiverId;
     }
 
