@@ -27,4 +27,15 @@ public class AccountRepository {
 
         return saved;
     }
+
+    public AccountEntity findById(Integer id) {
+        Session session = sessionFactory.openSession();
+
+        AccountEntity accountEntity = (AccountEntity) session.createQuery(
+                "FROM Account WHERE id = " + id).getSingleResult();
+
+        session.close();
+
+        return accountEntity;
+    }
 }

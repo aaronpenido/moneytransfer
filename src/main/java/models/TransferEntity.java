@@ -1,9 +1,11 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 @Entity(name = "Transfer")
@@ -13,9 +15,11 @@ public class TransferEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private Integer accountId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private AccountEntity account;
 
-    private Integer receiverId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private AccountEntity receiverAccount;
 
     private BigDecimal amount;
 
@@ -28,10 +32,10 @@ public class TransferEntity {
     public TransferEntity() {
     }
 
-    public TransferEntity(Transfer transfer) {
+    public TransferEntity(Transfer transfer, AccountEntity account, AccountEntity receiverAccount) {
         this.id = transfer.getId();
-        this.accountId = transfer.getAccountId();
-        this.receiverId = transfer.getReceiverId();
+        this.account = account;
+        this.receiverAccount = receiverAccount;
         this.amount = transfer.getAmount();
         this.currency = transfer.getCurrency();
         this.description = transfer.getDescription();
@@ -42,12 +46,12 @@ public class TransferEntity {
         return id;
     }
 
-    public Integer getAccountId() {
-        return accountId;
+    public AccountEntity getAccount() {
+        return account;
     }
 
-    public Integer getReceiverId() {
-        return receiverId;
+    public AccountEntity getReceiverAccount() {
+        return receiverAccount;
     }
 
     public BigDecimal getAmount() {

@@ -1,5 +1,6 @@
 package services;
 
+import models.AccountEntity;
 import models.Transfer;
 import models.TransferEntity;
 import org.junit.Before;
@@ -8,13 +9,16 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import persistence.AccountRepository;
 import persistence.TransferRepository;
 
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TransferCreatorTest {
@@ -24,16 +28,26 @@ public class TransferCreatorTest {
     @Mock
     private TransferRepository transferRepository;
 
+    @Mock
+    private AccountRepository accountRepository;
+
     @Before
     public void setUp() {
-        transferCreator = new TransferCreator(transferRepository);
+        transferCreator = new TransferCreator(transferRepository, accountRepository);
     }
 
     @Test
     public void callTransferRepositoryToSaveOnDatabaseWithRightValues() {
+        AccountEntity account = mock(AccountEntity.class);
+        AccountEntity receiverAccount = mock(AccountEntity.class);
+
         Transfer transfer = getTransfer();
         TransferEntity savedTransferEntity = mock(TransferEntity.class);
+        when(savedTransferEntity.getAccount()).thenReturn(account);
+        when(savedTransferEntity.getReceiverAccount()).thenReturn(receiverAccount);
 
+        when(accountRepository.findById(transfer.getAccountId())).thenReturn(account);
+        when(accountRepository.findById(transfer.getReceiverId())).thenReturn(receiverAccount);
         when(transferRepository.persist(any(TransferEntity.class))).thenReturn(savedTransferEntity);
 
         transferCreator.perform(transfer);
@@ -44,7 +58,7 @@ public class TransferCreatorTest {
 
         TransferEntity transferEntity = captor.getValue();
 
-        TransferEntity expectedTransferEntity = new TransferEntity(transfer);
+        TransferEntity expectedTransferEntity = new TransferEntity(transfer, account, receiverAccount);
 
         assertThat(transferEntity).isEqualToComparingFieldByFieldRecursively(expectedTransferEntity);
     }
@@ -52,12 +66,16 @@ public class TransferCreatorTest {
     @Test
     public void returnSavedTransferValues() {
         int id = 1;
+        AccountEntity account = mock(AccountEntity.class);
+        AccountEntity receiverAccount = mock(AccountEntity.class);
 
         Transfer transfer = mock(Transfer.class);
         when(transfer.getId()).thenReturn(id);
 
         TransferEntity savedTransferEntity = mock(TransferEntity.class);
         when(savedTransferEntity.getId()).thenReturn(id);
+        when(savedTransferEntity.getAccount()).thenReturn(account);
+        when(savedTransferEntity.getReceiverAccount()).thenReturn(receiverAccount);
 
         when(transferRepository.persist(any(TransferEntity.class))).thenReturn(savedTransferEntity);
 

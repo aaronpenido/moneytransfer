@@ -23,14 +23,14 @@ public class Transfer {
         this.scheduledFor = transferRequestBody.getScheduledFor();
     }
 
-    public Transfer(TransferEntity savedTransfer) {
-        this.id = savedTransfer.getId();
-        this.accountId = savedTransfer.getAccountId();
-        this.receiverId = savedTransfer.getReceiverId();
-        this.amount = savedTransfer.getAmount();
-        this.currency = savedTransfer.getCurrency();
-        this.description = savedTransfer.getDescription();
-        this.scheduledFor = savedTransfer.getScheduledFor();
+    public Transfer(TransferEntity transferEntity) {
+        this.id = transferEntity.getId();
+        this.accountId = transferEntity.getAccount().getId();
+        this.receiverId = transferEntity.getReceiverAccount().getId();
+        this.amount = transferEntity.getAmount();
+        this.currency = transferEntity.getCurrency();
+        this.description = transferEntity.getDescription();
+        this.scheduledFor = transferEntity.getScheduledFor();
     }
 
     public Integer getId() {
