@@ -49,6 +49,12 @@ public class CounterPartyControllerTest {
         ArgumentCaptor<CounterParty> captor = ArgumentCaptor.forClass(CounterParty.class);
 
         verify(counterPartyCreator).perform(captor.capture());
+
+        CounterParty counterParty = captor.getValue();
+
+        assertThat(counterParty.getName()).isEqualTo(name);
+        assertThat(counterParty.getCountry()).isEqualTo(country);
+        assertThat(counterParty.getIdentificationNumber()).isEqualTo(identificationNumber);
     }
 
     @Test

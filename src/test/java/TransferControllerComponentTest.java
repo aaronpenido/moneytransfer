@@ -1,4 +1,6 @@
+import com.google.gson.Gson;
 import controllers.TransferController;
+import models.Transfer;
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.core.SynchronousDispatcher;
 import org.jboss.resteasy.core.SynchronousExecutionContext;
@@ -7,30 +9,50 @@ import org.jboss.resteasy.mock.MockHttpRequest;
 import org.jboss.resteasy.mock.MockHttpResponse;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import requestbodies.TransferRequestBody;
+import services.TransferCreator;
 
 import javax.ws.rs.core.MediaType;
+import java.math.BigDecimal;
 import java.net.URISyntaxException;
 
-import static javax.ws.rs.core.Response.Status.OK;
+import static javax.ws.rs.core.Response.Status.CREATED;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TransferControllerComponentTest {
 
     private static Dispatcher dispatcher;
-    private static TransferController transferController;
+
+    private TransferController transferController;
+
+    @Mock
+    private TransferCreator transferCreator;
 
     @Before
     public void setUp() {
-        transferController = new TransferController();
+        transferController = new TransferController(transferCreator);
         dispatcher = MockDispatcherFactory.createDispatcher();
         dispatcher.getRegistry().addSingletonResource(transferController);
     }
 
     @Test
     public void callTransfersEndpoint() throws Exception {
-        MockHttpResponse response = sendAsyncPostRequest("/transfers", null);
+        TransferRequestBody transferRequestBody = new TransferRequestBody(1, 1, BigDecimal.ONE,
+                "EUR", "Transfer", "2018-09-10");
 
-        assertThat(response.getStatus()).isEqualTo(OK.getStatusCode());
+        when(transferCreator.perform(any(Transfer.class))).thenReturn(new Transfer(transferRequestBody));
+
+        String requestBody = new Gson().toJson(transferRequestBody);
+
+        MockHttpResponse response = sendAsyncPostRequest("/transfers", requestBody);
+
+        assertThat(response.getStatus()).isEqualTo(CREATED.getStatusCode());
     }
 
     private MockHttpResponse sendAsyncPostRequest(String path, String requestBody) throws URISyntaxException {
