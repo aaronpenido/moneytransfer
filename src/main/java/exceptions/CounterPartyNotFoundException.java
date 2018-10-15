@@ -1,8 +1,17 @@
 package exceptions;
 
-public class CounterPartyNotFoundException extends RuntimeException {
+import responses.ErrorResponseBody;
+
+public class CounterPartyNotFoundException extends RuntimeException implements FormattedErrorResponseBodyException {
 
     public CounterPartyNotFoundException(Integer counterPartyId) {
-        super(String.format("Counterparty with id %s was not found", counterPartyId));
+        super(String.format("Counter Party with id %s was not found", counterPartyId));
+    }
+
+    @Override
+    public ErrorResponseBody asErrorResponseBody() {
+        String code = "counterPartyNotFound";
+
+        return new ErrorResponseBody(code, this.getMessage());
     }
 }
