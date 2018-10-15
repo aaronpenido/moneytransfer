@@ -1,11 +1,6 @@
 import com.google.gson.Gson;
 import controllers.CounterPartyController;
 import models.CounterParty;
-import org.jboss.resteasy.core.Dispatcher;
-import org.jboss.resteasy.core.SynchronousDispatcher;
-import org.jboss.resteasy.core.SynchronousExecutionContext;
-import org.jboss.resteasy.mock.MockDispatcherFactory;
-import org.jboss.resteasy.mock.MockHttpRequest;
 import org.jboss.resteasy.mock.MockHttpResponse;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,9 +9,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import requestbodies.CounterPartyRequestBody;
 import services.CounterPartyCreator;
-
-import javax.ws.rs.core.MediaType;
-import java.net.URISyntaxException;
 
 import static javax.ws.rs.core.Response.Status.CREATED;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,18 +19,20 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class CounterPartyControllerComponentTest {
 
-    private static Dispatcher dispatcher;
+    private static final String COUNTERPARTIES_ENDPOINT = "/counterparties";
 
     private static CounterPartyController counterPartyController;
 
     @Mock
     private CounterPartyCreator counterPartyCreator;
 
+    private MockHttp mockHttp;
+
     @Before
     public void setUp() {
         counterPartyController = new CounterPartyController(counterPartyCreator);
-        dispatcher = MockDispatcherFactory.createDispatcher();
-        dispatcher.getRegistry().addSingletonResource(counterPartyController);
+
+        mockHttp = new MockHttp(counterPartyController);
 
         CounterParty counterParty = mock(CounterParty.class);
         when(counterPartyCreator.perform(any(CounterParty.class))).thenReturn(counterParty);
@@ -54,31 +48,9 @@ public class CounterPartyControllerComponentTest {
 
         String requestBodyAsJson = asJson(counterPartyRequestBody);
 
-        MockHttpResponse response = sendAsyncPostRequest("/counterparties", requestBodyAsJson);
+        MockHttpResponse response = mockHttp.sendAsyncPostRequest(COUNTERPARTIES_ENDPOINT, requestBodyAsJson);
 
         assertThat(response.getStatus()).isEqualTo(CREATED.getStatusCode());
-    }
-
-    private MockHttpResponse sendAsyncPostRequest(String path, String requestBody) throws URISyntaxException {
-
-        MockHttpRequest request = MockHttpRequest.post(path);
-
-        if (requestBody != null) {
-            request.accept(MediaType.APPLICATION_JSON);
-            request.contentType(MediaType.APPLICATION_JSON_TYPE);
-            request.content(requestBody.getBytes());
-        }
-
-        MockHttpResponse response = new MockHttpResponse();
-        SynchronousExecutionContext synchronousExecutionContext = new SynchronousExecutionContext((SynchronousDispatcher) dispatcher, request, response);
-        request.setAsynchronousContext(synchronousExecutionContext);
-
-        return sendHttpRequest(request, response);
-    }
-
-    private MockHttpResponse sendHttpRequest(MockHttpRequest request, MockHttpResponse response) {
-        dispatcher.invoke(request, response);
-        return response;
     }
 
     private String asJson(Object object) {
