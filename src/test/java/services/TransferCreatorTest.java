@@ -9,8 +9,8 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import persistence.AccountRepository;
-import persistence.TransferRepository;
+import repositories.AccountRepository;
+import repositories.TransferRepository;
 
 import java.math.BigDecimal;
 

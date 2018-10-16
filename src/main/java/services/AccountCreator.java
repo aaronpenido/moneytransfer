@@ -3,8 +3,8 @@ package services;
 import models.account.Account;
 import models.account.AccountEntity;
 import models.counterparty.CounterPartyEntity;
-import persistence.AccountRepository;
-import persistence.CounterPartyRepository;
+import repositories.AccountRepository;
+import repositories.CounterPartyRepository;
 
 import javax.inject.Inject;
 

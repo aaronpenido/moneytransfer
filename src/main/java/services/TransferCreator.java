@@ -3,8 +3,8 @@ package services;
 import models.account.AccountEntity;
 import models.transfer.Transfer;
 import models.transfer.TransferEntity;
-import persistence.AccountRepository;
-import persistence.TransferRepository;
+import repositories.AccountRepository;
+import repositories.TransferRepository;
 
 import javax.inject.Inject;
 

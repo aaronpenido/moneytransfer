@@ -3,9 +3,9 @@ import com.google.inject.Module;
 import controllers.account.AccountController;
 import controllers.counterparty.CounterPartyController;
 import controllers.transfer.TransferController;
-import persistence.AccountRepository;
-import persistence.CounterPartyRepository;
-import persistence.TransferRepository;
+import repositories.AccountRepository;
+import repositories.CounterPartyRepository;
+import repositories.TransferRepository;
 
 public class RevolutTransferModule implements Module {
 

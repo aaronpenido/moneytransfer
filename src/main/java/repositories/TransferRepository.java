@@ -1,4 +1,4 @@
-package persistence;
+package repositories;
 
 import models.transfer.TransferEntity;
 import org.hibernate.Session;

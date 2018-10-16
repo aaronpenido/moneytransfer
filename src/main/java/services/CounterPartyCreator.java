@@ -2,7 +2,7 @@ package services;
 
 import models.counterparty.CounterParty;
 import models.counterparty.CounterPartyEntity;
-import persistence.CounterPartyRepository;
+import repositories.CounterPartyRepository;
 
 import javax.inject.Inject;
 
