@@ -11,7 +11,10 @@
 
     <context-param>
         <param-name>resteasy.providers</param-name>
-        <param-value>exceptionhandlers.AccountNotFoundExceptionHandler, exceptionhandlers.CounterPartyNotFoundExceptionHandler</param-value>
+        <param-value>exceptionhandlers.AccountNotFoundExceptionHandler,
+            exceptionhandlers.CounterPartyNotFoundExceptionHandler,
+            exceptionhandlers.InvalidRequestBodyExceptionHandler
+        </param-value>
     </context-param>
 
     <listener>

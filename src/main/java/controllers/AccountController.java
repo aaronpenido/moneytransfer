@@ -28,6 +28,8 @@ public class AccountController {
     @Consumes("application/json")
     @Produces("application/json")
     public Response create(AccountRequestBody accountRequestBody) {
+        accountRequestBody.validate();
+
         Account account = new Account(accountRequestBody);
 
         Account createdAccount = accountCreator.perform(account);
