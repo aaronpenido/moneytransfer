@@ -12,6 +12,8 @@ import requestbodies.TransferRequestBody;
 import services.TransferCreator;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static javax.ws.rs.core.Response.Status.CREATED;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,8 +41,9 @@ public class TransferControllerComponentTest {
 
     @Test
     public void callTransfersEndpoint() throws Exception {
+        String scheduledFor = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         TransferRequestBody transferRequestBody = new TransferRequestBody(1, 1, BigDecimal.ONE,
-                "EUR", "Transfer", "2018-09-10");
+                "EUR", "Transfer", scheduledFor);
 
         when(transferCreator.perform(any(Transfer.class))).thenReturn(new Transfer(transferRequestBody));
 

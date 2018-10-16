@@ -12,6 +12,8 @@ import responses.TransferResponseBody;
 import services.TransferCreator;
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -60,7 +62,7 @@ public class TransferControllerTest {
         BigDecimal amount = BigDecimal.TEN;
         String currency = "EUR";
         String description = "Description";
-        String scheduledFor = "2018-09-10";
+        String scheduledFor = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         TransferRequestBody transferRequestBody = new TransferRequestBody(accountId, receiverId, amount, currency, description, scheduledFor);
 
@@ -73,5 +75,17 @@ public class TransferControllerTest {
         TransferResponseBody transferResponseBody = (TransferResponseBody) response.getEntity();
 
         assertThat(transferResponseBody.getId()).isEqualTo(id);
+    }
+
+    @Test
+    public void validateRequestBody() {
+        TransferRequestBody transferRequestBody = mock(TransferRequestBody.class);
+
+        Transfer savedTransfer = mock(Transfer.class);
+        when(transferCreator.perform(any(Transfer.class))).thenReturn(savedTransfer);
+
+        transferController.create(transferRequestBody);
+
+        verify(transferRequestBody).validate();
     }
 }

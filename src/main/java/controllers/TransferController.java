@@ -28,6 +28,8 @@ public class TransferController {
     @Consumes("application/json")
     @Produces("application/json")
     public Response create(TransferRequestBody transferRequestBody) {
+        transferRequestBody.validate();
+
         Transfer transfer = new Transfer(transferRequestBody);
 
         Transfer savedTransfer = transferCreator.perform(transfer);
