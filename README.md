@@ -4,16 +4,19 @@ RESTful API for money transfers between accounts.
 
 ## Getting Started
 
+```sh
 $ mvn clean install
 $ mvn jetty:run
+```
 
 ## Prerequisites
 
 
-
 ## Running the tests
 
+```sh
 $ mvn test
+```
 
 ## Built With
 
