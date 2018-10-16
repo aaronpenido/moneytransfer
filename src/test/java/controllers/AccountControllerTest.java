@@ -11,12 +11,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 import requestbodies.AccountRequestBody;
 import responses.AccountResponseBody;
 import services.AccountCreator;
+
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -76,7 +76,6 @@ public class AccountControllerTest {
         AccountRequestBody accountRequestBody = mock(AccountRequestBody.class);
         Account account = mock(Account.class);
 
-        doNothing().when(accountRequestBody).validate();
         when(accountCreator.perform(any(Account.class))).thenReturn(account);
 
         accountController.create(accountRequestBody);

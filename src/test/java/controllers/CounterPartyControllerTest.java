@@ -76,4 +76,16 @@ public class CounterPartyControllerTest {
 
         assertThat(responseBody.getId()).isEqualTo(generatedId);
     }
+
+    @Test
+    public void validateRequestBody() {
+        CounterPartyRequestBody counterPartyRequestBody = mock(CounterPartyRequestBody.class);
+
+        CounterParty createdCounterParty = mock(CounterParty.class);
+        when(counterPartyCreator.perform(any(CounterParty.class))).thenReturn(createdCounterParty);
+
+        counterPartyController.create(counterPartyRequestBody);
+
+        verify(counterPartyRequestBody).validate();
+    }
 }

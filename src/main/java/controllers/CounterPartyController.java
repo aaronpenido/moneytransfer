@@ -28,6 +28,8 @@ public class CounterPartyController {
     @Consumes("application/json")
     @Produces("application/json")
     public Response create(CounterPartyRequestBody counterPartyRequestBody) {
+        counterPartyRequestBody.validate();
+
         CounterParty counterParty = new CounterParty(counterPartyRequestBody);
 
         CounterParty createdCounterParty = counterPartyCreator.perform(counterParty);
