@@ -9,9 +9,6 @@ $ ./mvnw clean install
 $ ./mvnw jetty:run
 ```
 
-## Prerequisites
-
-
 ## Running the tests
 
 ```sh
