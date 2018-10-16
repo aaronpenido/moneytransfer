@@ -1,7 +1,7 @@
 package exceptionhandlers;
 
 import exceptions.InvalidRequestBodyException;
-import responses.ErrorResponseBodyCollection;
+import models.errors.ErrorResponseBodyCollection;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

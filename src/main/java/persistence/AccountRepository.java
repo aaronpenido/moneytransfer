@@ -1,7 +1,7 @@
 package persistence;
 
 import exceptions.AccountNotFoundException;
-import models.AccountEntity;
+import models.account.AccountEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

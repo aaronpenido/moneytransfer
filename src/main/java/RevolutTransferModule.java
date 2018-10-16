@@ -1,8 +1,8 @@
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import controllers.AccountController;
-import controllers.CounterPartyController;
-import controllers.TransferController;
+import controllers.account.AccountController;
+import controllers.counterparty.CounterPartyController;
+import controllers.transfer.TransferController;
 import persistence.AccountRepository;
 import persistence.CounterPartyRepository;
 import persistence.TransferRepository;

@@ -1,6 +1,6 @@
 package persistence;
 
-import models.TransferEntity;
+import models.transfer.TransferEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

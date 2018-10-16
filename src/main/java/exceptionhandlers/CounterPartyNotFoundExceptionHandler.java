@@ -1,7 +1,7 @@
 package exceptionhandlers;
 
 import exceptions.CounterPartyNotFoundException;
-import responses.ErrorResponseBody;
+import models.errors.ErrorResponseBody;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

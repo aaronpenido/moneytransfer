@@ -1,7 +1,7 @@
 package persistence;
 
 import exceptions.CounterPartyNotFoundException;
-import models.CounterPartyEntity;
+import models.counterparty.CounterPartyEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

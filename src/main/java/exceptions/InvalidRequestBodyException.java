@@ -1,6 +1,6 @@
 package exceptions;
 
-import responses.ErrorResponseBodyCollection;
+import models.errors.ErrorResponseBodyCollection;
 
 public class InvalidRequestBodyException extends RuntimeException {
 

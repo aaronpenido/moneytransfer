@@ -1,8 +1,8 @@
 package services;
 
-import models.AccountEntity;
-import models.Transfer;
-import models.TransferEntity;
+import models.account.AccountEntity;
+import models.transfer.Transfer;
+import models.transfer.TransferEntity;
 import persistence.AccountRepository;
 import persistence.TransferRepository;
 

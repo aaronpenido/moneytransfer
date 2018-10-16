@@ -11,8 +11,8 @@
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">create</property>
-        <mapping class="models.AccountEntity"/>
-        <mapping class="models.CounterPartyEntity"/>
-        <mapping class="models.TransferEntity"/>
+        <mapping class="models.account.AccountEntity"/>
+        <mapping class="models.counterparty.CounterPartyEntity"/>
+        <mapping class="models.transfer.TransferEntity"/>
     </session-factory>
 </hibernate-configuration>

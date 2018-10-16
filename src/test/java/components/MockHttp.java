@@ -11,16 +11,16 @@ import org.jboss.resteasy.mock.MockHttpResponse;
 import javax.ws.rs.core.MediaType;
 import java.net.URISyntaxException;
 
-class MockHttp {
+public class MockHttp {
 
     private static Dispatcher dispatcher;
 
-    MockHttp(Object controller) {
+    public MockHttp(Object controller) {
         dispatcher = MockDispatcherFactory.createDispatcher();
         dispatcher.getRegistry().addSingletonResource(controller);
     }
 
-    MockHttpResponse sendAsyncPostRequest(String path, Object requestBody) throws URISyntaxException {
+    public MockHttpResponse sendAsyncPostRequest(String path, Object requestBody) throws URISyntaxException {
 
         MockHttpRequest request = MockHttpRequest.post(path);
 

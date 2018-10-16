@@ -1,8 +1,8 @@
 package services;
 
-import models.Account;
-import models.AccountEntity;
-import models.CounterPartyEntity;
+import models.account.Account;
+import models.account.AccountEntity;
+import models.counterparty.CounterPartyEntity;
 import persistence.AccountRepository;
 import persistence.CounterPartyRepository;
 

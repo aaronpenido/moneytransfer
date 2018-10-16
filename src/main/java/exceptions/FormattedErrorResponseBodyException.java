@@ -1,6 +1,6 @@
 package exceptions;
 
-import responses.ErrorResponseBody;
+import models.errors.ErrorResponseBody;
 
 public interface FormattedErrorResponseBodyException {
 
